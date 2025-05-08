@@ -1,0 +1,17 @@
+jobs:
+  fast-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: DeterminateSystems/nix-installer-action@main
+      with:
+        diagnostic-endpoint: ''
+        logger: pretty
+        source-url: https://install.lix.systems/lix
+    - uses: nix-community/cache-nix-action@v6
+    - name: check flake
+      run: nix -Lv flake check
+    timeout-minutes: 60
+'on':
+  push: {}
+  workflow_dispatch: {}
