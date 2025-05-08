@@ -53,13 +53,16 @@
                   {
                     uses = "DeterminateSystems/nix-installer-action@main";
                     "with" = {
-                      source-url = "https://install.lix.systems/lix/lix-installer-\${{ fromJSON(''{\"X64\":\"x86_64\",\"X86\":\"i686\",\"ARM64\":\"aarch64\",\"ARM\":\"armv7l\"}'')[runner.arch] }}-\${{ fromJSON(''{\"Linux\":\"linux\",\"macOS\":\"darwin\",\"Windows\":\"windows\"}'')[runner.os] }}";
+                      source-url = "'https://install.lix.systems/lix/lix-installer-\${{ fromJSON(''{\"X64\":\"x86_64\",\"X86\":\"i686\",\"ARM64\":\"aarch64\",\"ARM\":\"armv7l\"}'')[runner.arch] }}-\${{ fromJSON(''{\"Linux\":\"linux\",\"macOS\":\"darwin\",\"Windows\":\"windows\"}'')[runner.os] }}'";
                       logger = "pretty";
                       diagnostic-endpoint = "";
                     };
                   }
                   {
                     uses = "nix-community/cache-nix-action@v6";
+                    "with" = {
+                      primary-key = "nix-\${{ runner.os }}-\${{ hashFiles('**/*.nix', '**/flake.lock') }}";
+                    };
                   }
                   {
                     name = "check flake";
