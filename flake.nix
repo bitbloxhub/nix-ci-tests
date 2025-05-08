@@ -35,7 +35,7 @@
       ];
 
       flake.actions-nix = {
-        pre-commit.enable = true;
+        pre-commit.enable = false;
         defaults = {
           jobs = {
             timeout-minutes = 60;
