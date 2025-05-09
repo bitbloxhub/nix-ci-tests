@@ -12,7 +12,7 @@ jobs:
           }}
     - name: chown store
       run: sudo chown -R $USER:$USER /nix/store/
-    - uses: nix-community/cache-nix-action/restore@v6
+    - uses: nix-community/cache-nix-action@v6
       with:
         gc-max-store-size-linux: '1073741824'
         primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock')
@@ -23,7 +23,7 @@ jobs:
         purge-primary-key: never
         restore-prefixes-first-match: nix-${{ runner.os }}
     - name: chown store
-      run: sudow chown root:nixbld /nix/store && sudo chown -R root:root /nix/store/
+      run: sudo chown root:nixbld /nix/store && sudo chown -R root:root /nix/store/
     - name: check flake
       run: nix -Lv flake check
     timeout-minutes: 60

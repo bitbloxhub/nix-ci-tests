@@ -63,7 +63,7 @@
                     run = "sudo chown -R $USER:$USER /nix/store/";
                   }
                   {
-                    uses = "nix-community/cache-nix-action/restore@v6";
+                    uses = "nix-community/cache-nix-action@v6";
                     "with" = {
                       primary-key = "nix-\${{ runner.os }}-\${{ hashFiles('**/*.nix', '**/flake.lock') }}";
                       restore-prefixes-first-match = "nix-\${{ runner.os }}";
@@ -76,7 +76,7 @@
                   }
                   {
                     name = "chown store";
-                    run = "sudow chown root:nixbld /nix/store && sudo chown -R root:root /nix/store/";
+                    run = "sudo chown root:nixbld /nix/store && sudo chown -R root:root /nix/store/";
                   }
                   {
                     name = "check flake";
