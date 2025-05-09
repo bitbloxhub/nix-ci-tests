@@ -11,7 +11,7 @@ jobs:
           }}-${{ fromJSON('{"Linux":"linux","macOS":"darwin","Windows":"windows"}')[runner.os]
           }}
     - name: chown store
-      run: sudo chown -R $USER:$USER /nix/store/
+      run: sudo chown -R $USER:$USER /nix/store/ && ls -la /nix/store/ /nix
     - uses: nix-community/cache-nix-action@v6
       with:
         gc-max-store-size-linux: '1073741824'

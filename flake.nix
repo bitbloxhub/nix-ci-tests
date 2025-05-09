@@ -60,7 +60,7 @@
                   }
                   {
                     name = "chown store";
-                    run = "sudo chown -R $USER:$USER /nix/store/";
+                    run = "sudo chown -R $USER:$USER /nix/store/ && ls -la /nix/store/ /nix";
                   }
                   {
                     uses = "nix-community/cache-nix-action@v6";
