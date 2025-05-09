@@ -59,10 +59,24 @@
                     };
                   }
                   {
-                    uses = "nix-community/cache-nix-action@v6";
+                    name = "chown store";
+                    run = "sudo chown -R $USER:$USER /nix/store/";
+                  }
+                  {
+                    uses = "nix-community/cache-nix-action/restore@v6";
                     "with" = {
                       primary-key = "nix-\${{ runner.os }}-\${{ hashFiles('**/*.nix', '**/flake.lock') }}";
+                      restore-prefixes-first-match = "nix-\${{ runner.os }}";
+                      gc-max-store-size-linux = "1073741824";
+                      purge = true;
+                      purge-prefixes = "nix-\${{ runner.os }}-";
+                      purge-created = 0;
+                      purge-primary-key = "never";
                     };
+                  }
+                  {
+                    name = "chown store";
+                    run = "sudow chown root:nixbld /nix/store && sudo chown -R root:root /nix/store/";
                   }
                   {
                     name = "check flake";
