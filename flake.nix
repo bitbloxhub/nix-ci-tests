@@ -60,7 +60,7 @@
                   }
                   {
                     name = "chown store";
-                    run = "sudo chown -R $USER:$USER /nix/store/ && ls -la /nix/store/ /nix";
+                    run = "sudo chown -R $USER:$USER /nix/ && ls -la /nix/store/ /nix";
                   }
                   {
                     uses = "nix-community/cache-nix-action@v6";
@@ -76,7 +76,7 @@
                   }
                   {
                     name = "chown store";
-                    run = "sudo chown root:nixbld /nix/store && sudo chown -R root:root /nix/store/";
+                    run = "sudo chown -R root:root /nix/ && sudo chown root:nixbld /nix/store";
                   }
                   {
                     name = "check flake";

@@ -11,7 +11,7 @@ jobs:
           }}-${{ fromJSON('{"Linux":"linux","macOS":"darwin","Windows":"windows"}')[runner.os]
           }}
     - name: chown store
-      run: sudo chown -R $USER:$USER /nix/store/ && ls -la /nix/store/ /nix
+      run: sudo chown -R $USER:$USER /nix/ && ls -la /nix/store/ /nix
     - uses: nix-community/cache-nix-action@v6
       with:
         gc-max-store-size-linux: '1073741824'
@@ -23,7 +23,7 @@ jobs:
         purge-primary-key: never
         restore-prefixes-first-match: nix-${{ runner.os }}
     - name: chown store
-      run: sudo chown root:nixbld /nix/store && sudo chown -R root:root /nix/store/
+      run: sudo chown -R root:root /nix/ && sudo chown root:nixbld /nix/store
     - name: check flake
       run: nix -Lv flake check
     timeout-minutes: 60
