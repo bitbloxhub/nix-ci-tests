@@ -12,12 +12,14 @@ def main (file: string) {
           let eval_err = (do -i
             {unbuffer nix eval --show-trace $".#checks.($status.attr)" e+o>| cat}
           )
+          $eval_err | inspect
           $status | update error $eval_err
         })
         "BUILD" => {
           let build_log = (do -i
             {unbuffer nix log $".#checks.($status.attr)" e+o>| cat}
           )
+          $build_log | inspect
           $status | update error $build_log
         }
         _ => $status
