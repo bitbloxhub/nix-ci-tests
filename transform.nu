@@ -1,5 +1,4 @@
-#!/usr/bin/env nix
-#!nix shell nixpkgs#expect nixpkgs#nushell --command nu
+#!/usr/bin/env nu
 
 def main (file: string) {
   open $file
