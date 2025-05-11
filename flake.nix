@@ -127,7 +127,7 @@
               nativeBuildInputs = [ pkgs.bash ];
               checkPhase = ''
                 patchShebangs *.sh
-                if [[ "$(./c.sh)" == *c* ]]; then true; else echo "fail" && false; fi;
+                if [[ "$(./c.sh)" == *b* ]]; then true; else echo "fail" && false; fi;
               '';
               installPhase = ''
                 mkdir "$out"
