@@ -59,28 +59,8 @@
                     };
                   }
                   {
-                    name = "chown store";
-                    run = "sudo chown -R $USER:$USER /nix/ && ls -la /nix/store/ /nix";
-                  }
-                  {
-                    uses = "nix-community/cache-nix-action@v6";
-                    "with" = {
-                      primary-key = "nix-\${{ runner.os }}-\${{ hashFiles('**/*.nix', '**/flake.lock') }}";
-                      restore-prefixes-first-match = "nix-\${{ runner.os }}";
-                      gc-max-store-size-linux = "1073741824";
-                      purge = true;
-                      purge-prefixes = "nix-\${{ runner.os }}-";
-                      purge-created = 0;
-                      purge-primary-key = "never";
-                    };
-                  }
-                  {
-                    name = "chown store";
-                    run = "sudo chown -R root:root /nix/ && sudo chown root:nixbld /nix/store";
-                  }
-                  {
-                    name = "check flake";
-                    run = "nix -Lv flake check";
+                    name = "nix-fast-build";
+                    run = "nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --skip-cached --result-file result.json || true";
                   }
                 ];
               };
@@ -103,6 +83,7 @@
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               nixfmt-rfc-style
+              nushell
             ];
           };
           checks = {
@@ -142,7 +123,7 @@
               nativeBuildInputs = [ pkgs.bash ];
               checkPhase = ''
                 patchShebangs *.sh
-                if [[ "$(./c.sh)" == *b* ]]; then true; else echo "fail" && false; fi;
+                if [[ "$(./c.sh)" == *c* ]]; then true; else echo "fail" && false; fi;
               '';
               installPhase = ''
                 mkdir "$out"

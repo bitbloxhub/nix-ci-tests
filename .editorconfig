@@ -8,3 +8,7 @@ tab_width = 4
 [*.nix]
 indent_style = space
 indent_size = 2
+
+[*.nu]
+indent_style = space
+indent_size = 2
