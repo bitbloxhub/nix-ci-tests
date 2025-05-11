@@ -10,22 +10,11 @@ jobs:
         source-url: https://install.lix.systems/lix/lix-installer-${{ fromJSON('{"X64":"x86_64","X86":"i686","ARM64":"aarch64","ARM":"armv7l"}')[runner.arch]
           }}-${{ fromJSON('{"Linux":"linux","macOS":"darwin","Windows":"windows"}')[runner.os]
           }}
-    - name: chown store
-      run: sudo chown -R $USER:$USER /nix/ && ls -la /nix/store/ /nix
-    - uses: nix-community/cache-nix-action@v6
-      with:
-        gc-max-store-size-linux: '1073741824'
-        primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock')
-          }}
-        purge: true
-        purge-created: 0
-        purge-prefixes: nix-${{ runner.os }}-
-        purge-primary-key: never
-        restore-prefixes-first-match: nix-${{ runner.os }}
-    - name: chown store
-      run: sudo chown -R root:root /nix/ && sudo chown root:nixbld /nix/store
-    - name: check flake
-      run: nix -Lv flake check
+    - name: nix-fast-build
+      run: nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --skip-cached
+        --result-file result.json || true
+    - name: transform
+      run: ./transform.nu result.json && cat result.json
     timeout-minutes: 60
 'on':
   push: {}

@@ -62,6 +62,10 @@
                     name = "nix-fast-build";
                     run = "nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --skip-cached --result-file result.json || true";
                   }
+                  {
+                    name = "transform";
+                    run = "./transform.nu result.json && cat result.json";
+                  }
                 ];
               };
             };
