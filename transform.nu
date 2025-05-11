@@ -1,6 +1,7 @@
 #!/usr/bin/env nu
 
 def main (file: string) {
+  echo "a"
   open $file
   | get results
   | each {|status|
