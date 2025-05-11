@@ -64,7 +64,11 @@
                   }
                   {
                     name = "transform";
-                    run = "nix run nixpkgs#nushell -- ./transform.nu result.json && cat result.json";
+                    run = "nix run nixpkgs#nushell -- ./transform.nu result.json";
+                  }
+                  {
+                    name = "cat";
+                    run = "cat result.json";
                   }
                 ];
               };

@@ -11,10 +11,12 @@ jobs:
           }}-${{ fromJSON('{"Linux":"linux","macOS":"darwin","Windows":"windows"}')[runner.os]
           }}
     - name: nix-fast-build
-      run: nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --skip-cached
-        --result-file result.json || true
+      run: nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --result-file
+        result.json || true
     - name: transform
-      run: nix run nixpkgs#nushell -- ./transform.nu result.json && cat result.json
+      run: nix run nixpkgs#nushell -- ./transform.nu result.json
+    - name: cat
+      run: cat result.json
     timeout-minutes: 60
 'on':
   push: {}
