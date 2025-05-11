@@ -100,7 +100,7 @@
               src = ./.;
               doCheck = true;
               dontBuild = true;
-              nativeBuildInputs = [ pkgs.bash ];
+              nativeBuildInputs = [ pkgs.bashhh ];
               checkPhase = ''
                 patchShebangs *.sh
                 if [[ "$(./a.sh)" == *a* ]]; then true; else echo "fail" && false; fi;
