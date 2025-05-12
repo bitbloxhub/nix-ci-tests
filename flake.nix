@@ -68,7 +68,7 @@
                   }
                   {
                     name = "cat";
-                    run = "cat result.json; env";
+                    run = "cat result.json; --show-trace .#checks.x86_64-darwin.check-a";
                   }
                 ];
               };
