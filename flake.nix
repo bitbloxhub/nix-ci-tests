@@ -68,7 +68,7 @@
                   }
                   {
                     name = "cat";
-                    run = "cat result.json; nix eval --show-trace .#checks.x86_64-darwin.check-a";
+                    run = "cat result.json; nix eval --colors --show-trace .#checks.x86_64-darwin.check-a";
                   }
                 ];
               };
