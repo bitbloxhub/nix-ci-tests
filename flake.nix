@@ -68,7 +68,7 @@
                   }
                   {
                     name = "cat";
-                    run = "cat result.json; sudo apt-get install -y expect-dev; unbuffer -p nix eval --show-trace .#checks.x86_64-darwin.check-a";
+                    run = "cat result.json; cargo install faketty; faketty nix eval --show-trace .#checks.x86_64-darwin.check-a";
                   }
                 ];
               };
