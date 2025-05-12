@@ -68,7 +68,7 @@
                   }
                   {
                     name = "cat";
-                    run = "cat result.json";
+                    run = "cat result.json; echo -e \"\\033[1;31m Some text here \\033[0m\" | cat";
                   }
                 ];
               };
