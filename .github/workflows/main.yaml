@@ -17,7 +17,7 @@ jobs:
       run: nix shell nixpkgs#faketty nixpkgs#expect nixpkgs#nushell --command nu ./transform.nu
         result.json
     - name: cat
-      run: cat result.json; cargo install faketty; faketty nix eval --show-trace .#checks.x86_64-darwin.check-a
+      run: cat result.json; unset NO_COLOR && TERM=xterm nix eval --show-trace .#checks.x86_64-darwin.check-a
     timeout-minutes: 60
 'on':
   push: {}
