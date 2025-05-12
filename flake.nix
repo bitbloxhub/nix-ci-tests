@@ -64,11 +64,11 @@
                   }
                   {
                     name = "transform";
-                    run = "nix shell nixpkgs#expect nixpkgs#nushell --command nu ./transform.nu result.json";
+                    run = "nix shell nixpkgs#faketty nixpkgs#expect nixpkgs#nushell --command nu ./transform.nu result.json";
                   }
                   {
                     name = "cat";
-                    run = "cat result.json; nix eval --colors --show-trace .#checks.x86_64-darwin.check-a";
+                    run = "cat result.json; sudo apt-get install -y expect-dev; unbuffer -p nix eval --show-trace .#checks.x86_64-darwin.check-a";
                   }
                 ];
               };
