@@ -10,14 +10,14 @@ def main (file: string) {
           $status
         } else {
           let eval_err = (do -i
-            {faketty nix eval --show-trace $".#checks.($status.attr)" e+o>| cat}
+            {TERM=xterm-256color faketty nix eval --show-trace $".#checks.($status.attr)" e+o>| cat}
           )
           $eval_err | inspect
           $status | update error $eval_err
         })
         "BUILD" => {
           let build_log = (do -i
-            {faketty nix log $".#checks.($status.attr)" e+o>| cat}
+            {TERM=xterm-256color faketty nix log $".#checks.($status.attr)" e+o>| cat}
           )
           $build_log | inspect
           $status | update error $build_log
