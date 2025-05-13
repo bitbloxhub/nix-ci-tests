@@ -68,7 +68,7 @@
                   }
                   {
                     name = "cat";
-                    run = "cat result.json; unset NO_COLOR && TERM=xterm unbuffer nix eval --show-trace .#checks.x86_64-darwin.check-a";
+                    run = "cat result.json";
                   }
                 ];
               };
