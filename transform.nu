@@ -11,14 +11,14 @@ def main (file: string) {
         } else {
           $status.attr | inspect
           let eval_err = (do -i
-            {TERM=xterm-256color unbuffer nix eval --show-trace $".#checks.($status.attr)" e+o>|}
+            {TERM=xterm-256color nix eval --show-trace $".#checks.($status.attr)" e+o>|}
           )
           $status | update error $eval_err
         })
         "BUILD" => {
           $status.attr | inspect
           let build_log = (do -i
-            {TERM=xterm-256color unbuffer nix log $".#checks.($status.attr)" e+o>|}
+            {TERM=xterm-256color nix log $".#checks.($status.attr)" e+o>|}
           )
           $status | update error $build_log
         }
