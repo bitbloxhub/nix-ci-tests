@@ -1,7 +1,7 @@
 #!/usr/bin/env nu
 
 def main (file: string) {
-  echo "a"
+  "a" | inspect
   open $file
   | get results
   | each {|status|
