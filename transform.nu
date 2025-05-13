@@ -9,12 +9,14 @@ def main (file: string) {
         "EVAL" => (if ($status.success) {
           $status
         } else {
+          echo $status.attr
           let eval_err = (do -i
             {TERM=xterm-256color unbuffer nix eval --show-trace $".#checks.($status.attr)" e+o>|}
           )
           $status | update error $eval_err
         })
         "BUILD" => {
+          echo $status.attr
           let build_log = (do -i
             {TERM=xterm-256color unbuffer nix log $".#checks.($status.attr)" e+o>|}
           )
