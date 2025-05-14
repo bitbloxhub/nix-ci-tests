@@ -14,8 +14,8 @@ jobs:
       run: nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --result-file
         result.json || true
     - name: unbuffer bash
-      run: nix shell nixpkgs#expect nixpkgs#bash --command bash -c "unbuffer -p nix
-        eval --show-trace .#checks.x86_64-linux.check-a | cat"
+      run: nix shell nixpkgs#expect nixpkgs#bash --command bash -c "TERM=xterm-256color
+        unbuffer -p nix eval --show-trace .#checks.x86_64-linux.check-a | cat"
     - name: transform
       run: nix shell nixpkgs#unixtools.script nixpkgs#expect nixpkgs#nushell --command
         nu ./transform.nu result.json
