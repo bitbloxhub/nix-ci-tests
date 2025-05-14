@@ -64,7 +64,7 @@
                   }
                   {
                     name = "unbuffer bash";
-                    run = "nix shell nixpkgs#expect nixpkgs#bash --command bash -c \"TERM=xterm-256color unbuffer -p nix eval --show-trace .#checks.x86_64-linux.check-a | cat\"";
+                    run = "nix shell nixpkgs#unixtools.script nixpkgs#bash --command bash -c \"TERM=xterm-256color script -efq -c \\\"nix eval --show-trace .#checks.x86_64-linux.check-a | cat\\\"\"";
                   }
                   {
                     name = "transform";
