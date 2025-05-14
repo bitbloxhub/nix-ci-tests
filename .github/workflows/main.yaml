@@ -14,8 +14,8 @@ jobs:
       run: nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --result-file
         result.json || true
     - name: transform
-      run: nix shell nixpkgs#faketty nixpkgs#expect nixpkgs#nushell --command nu ./transform.nu
-        result.json
+      run: nix shell nixpkgs#unixtools.script nixpkgs#expect nixpkgs#nushell --command
+        nu ./transform.nu result.json
     - name: cat
       run: cat result_parsed.json
     timeout-minutes: 60
