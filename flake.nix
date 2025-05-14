@@ -63,6 +63,10 @@
                     run = "nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --result-file result.json || true";
                   }
                   {
+                    name = "unbuffer bash";
+                    run = "nix shell nixpkgs#unbuffer nixpkgs#bash --command bash -c \"unbuffer ls -la --color=auto\"";
+                  }
+                  {
                     name = "transform";
                     run = "nix shell nixpkgs#unixtools.script nixpkgs#expect nixpkgs#nushell --command nu ./transform.nu result.json";
                   }
