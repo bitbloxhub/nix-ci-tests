@@ -64,7 +64,7 @@
                   }
                   {
                     name = "unbuffer bash";
-                    run = "nix shell nixpkgs#expect nixpkgs#bash --command bash -c \"unbuffer ls -la --color=auto\" | cat";
+                    run = "nix shell nixpkgs#expect nixpkgs#bash --command bash -c \"unbuffer nix eval --show-trace .#checks.x86_64-linux.check-a | cat\"";
                   }
                   {
                     name = "transform";
