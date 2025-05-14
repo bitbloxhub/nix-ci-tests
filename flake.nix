@@ -68,7 +68,7 @@
                   }
                   {
                     name = "cat";
-                    run = "cat result.json";
+                    run = "cat result_parsed.json";
                   }
                 ];
               };

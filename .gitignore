@@ -1,4 +1,5 @@
 .direnv/
 
 result.json
+result_parsed.json
 result-*

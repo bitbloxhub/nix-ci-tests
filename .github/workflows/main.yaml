@@ -17,7 +17,7 @@ jobs:
       run: nix shell nixpkgs#faketty nixpkgs#expect nixpkgs#nushell --command nu ./transform.nu
         result.json
     - name: cat
-      run: cat result.json
+      run: cat result_parsed.json
     timeout-minutes: 60
 'on':
   push: {}
