@@ -17,8 +17,8 @@ jobs:
       run: nix shell nixpkgs#unixtools.script nixpkgs#bash --command bash -c "TERM=xterm-256color
         script -efq -c \"nix eval --show-trace .#checks.x86_64-linux.check-a | cat\""
     - name: transform
-      run: nix shell nixpkgs#unixtools.script nixpkgs#expect nixpkgs#nushell --command
-        nu ./transform.nu result.json
+      run: nix shell nixpkgs#unixtools.script nixpkgs#expect nixpkgs#deno --command
+        deno run -A ./transform.ts result.json
     - name: cat
       run: cat result_parsed.json
     timeout-minutes: 60

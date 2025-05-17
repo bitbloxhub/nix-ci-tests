@@ -68,7 +68,7 @@
                   }
                   {
                     name = "transform";
-                    run = "nix shell nixpkgs#unixtools.script nixpkgs#expect nixpkgs#nushell --command nu ./transform.nu result.json";
+                    run = "nix shell nixpkgs#unixtools.script nixpkgs#expect nixpkgs#deno --command deno run -A ./transform.ts result.json";
                   }
                   {
                     name = "cat";
@@ -96,6 +96,7 @@
             packages = with pkgs; [
               nixfmt-rfc-style
               nushell
+              deno
             ];
           };
           checks = {

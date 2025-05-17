@@ -1,0 +1,173 @@
+Script started on 2025-05-17 18:19:50+00:00 [COMMAND="nix eval --show-trace ".#checks.aarch64-darwin.check-a"" <not executed on terminal>]
+[K[35;1mwarning:[0m Git tree '[35;1m/mnt/wd-blue-2tb/home/jonahgam/nix-ci-tests[0m' is dirty[0m[K[31;1merror:[0m[K[K[K[31;1merror:[0m
+       … while evaluating an expression to select '[35;1mdrvPath[0m' on it
+         [34;1mat [35;1m«internal»:1:552[0m:
+       … while calling the '[35;1mderivationStrict[0m' builtin
+         [34;1mat [35;1m«internal»:1:208[0m:
+       … while evaluating derivation '[35;1mcheck-a[0m'
+         whose name attribute is located at [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:439:13[0m
+
+       … while evaluating attribute '[35;1m__impureHostDeps[0m' of derivation '[35;1mcheck-a[0m'
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:579:15[0m:
+          578|               );
+          579|               __impureHostDeps =
+             |               [31;1m^[0m
+          580|                 computedImpureHostDeps
+
+       … while calling the '[35;1mfoldl'[0m' builtin
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:550:40[0m:
+          549|
+          550|               computedImpureHostDeps = unique (
+             |                                        [31;1m^[0m
+          551|                 concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
+
+       … while calling the '[35;1mconcatMap[0m' builtin
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:551:17[0m:
+          550|               computedImpureHostDeps = unique (
+          551|                 concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
+             |                 [31;1m^[0m
+          552|                   stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs ++ allDependencies
+
+       … while calling [35;1manonymous lambda[0m
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:551:28[0m:
+          550|               computedImpureHostDeps = unique (
+          551|                 concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
+             |                            [31;1m^[0m
+          552|                   stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs ++ allDependencies
+
+       … while evaluating an expression to select '[35;1m__propagatedImpureHostDeps[0m' on it
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:551:35[0m:
+          550|               computedImpureHostDeps = unique (
+          551|                 concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
+             |                                   [31;1m^[0m
+          552|                   stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs ++ allDependencies
+
+       … from call site
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:551:35[0m:
+          550|               computedImpureHostDeps = unique (
+          551|                 concatMap (input: input.__propagatedImpureHostDeps or [ ]) (
+             |                                   [31;1m^[0m
+          552|                   stdenv.extraNativeBuildInputs ++ stdenv.extraBuildInputs ++ allDependencies
+
+       … while calling [35;1manonymous lambda[0m
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:392:19[0m:
+          391|             ))
+          392|             (map (drv: getDev drv.__spliced.buildHost or drv) (
+             |                   [31;1m^[0m
+          393|               checkDependencyList "nativeBuildInputs" nativeBuildInputs'
+
+       … from call site
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:392:24[0m:
+          391|             ))
+          392|             (map (drv: getDev drv.__spliced.buildHost or drv) (
+             |                        [31;1m^[0m
+          393|               checkDependencyList "nativeBuildInputs" nativeBuildInputs'
+
+       … while calling [35;1m'getOutput'[0m
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/lib/attrsets.nix:1745:13[0m:
+         1744|   getOutput =
+         1745|     output: pkg:
+             |             [31;1m^[0m
+         1746|     if !pkg ? outputSpecified || !pkg.outputSpecified then pkg.${output} or pkg.out or pkg else pkg;
+
+       … while evaluating a branch condition
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/lib/attrsets.nix:1746:5[0m:
+         1745|     output: pkg:
+         1746|     if !pkg ? outputSpecified || !pkg.outputSpecified then pkg.${output} or pkg.out or pkg else pkg;
+             |     [31;1m^[0m
+         1747|
+
+       … in the left operand of the OR (||) operator
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/lib/attrsets.nix:1746:31[0m:
+         1745|     output: pkg:
+         1746|     if !pkg ? outputSpecified || !pkg.outputSpecified then pkg.${output} or pkg.out or pkg else pkg;
+             |                               [31;1m^[0m
+         1747|
+
+       … in the argument of the not operator
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/lib/attrsets.nix:1746:9[0m:
+         1745|     output: pkg:
+         1746|     if !pkg ? outputSpecified || !pkg.outputSpecified then pkg.${output} or pkg.out or pkg else pkg;
+             |         [31;1m^[0m
+         1747|
+
+       … while evaluating an expression to select '[35;1m__spliced.buildHost[0m' on it
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:392:31[0m:
+          391|             ))
+          392|             (map (drv: getDev drv.__spliced.buildHost or drv) (
+             |                               [31;1m^[0m
+          393|               checkDependencyList "nativeBuildInputs" nativeBuildInputs'
+
+       … from call site
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:392:31[0m:
+          391|             ))
+          392|             (map (drv: getDev drv.__spliced.buildHost or drv) (
+             |                               [31;1m^[0m
+          393|               checkDependencyList "nativeBuildInputs" nativeBuildInputs'
+
+       … while calling [35;1manonymous lambda[0m
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/lib/lists.nix:345:29[0m:
+          344|   */
+          345|   imap1 = f: list: genList (n: f (n + 1) (elemAt list n)) (length list);
+             |                             [31;1m^[0m
+          346|
+
+       … from call site
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/lib/lists.nix:345:32[0m:
+          344|   */
+          345|   imap1 = f: list: genList (n: f (n + 1) (elemAt list n)) (length list);
+             |                                [31;1m^[0m
+          346|
+
+       … while calling [35;1manonymous lambda[0m
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:349:18[0m:
+          348|         imap1 (
+          349|           index: dep:
+             |                  [31;1m^[0m
+          350|           if dep == null || isDerivation dep || builtins.isString dep || builtins.isPath dep then
+
+       … while evaluating a branch condition
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:350:11[0m:
+          349|           index: dep:
+          350|           if dep == null || isDerivation dep || builtins.isString dep || builtins.isPath dep then
+             |           [31;1m^[0m
+          351|             dep
+
+       … in the left operand of the OR (||) operator
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:350:71[0m:
+          349|           index: dep:
+          350|           if dep == null || isDerivation dep || builtins.isString dep || builtins.isPath dep then
+             |                                                                       [31;1m^[0m
+          351|             dep
+
+       … in the left operand of the OR (||) operator
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:350:46[0m:
+          349|           index: dep:
+          350|           if dep == null || isDerivation dep || builtins.isString dep || builtins.isPath dep then
+             |                                              [31;1m^[0m
+          351|             dep
+
+       … in the left operand of the OR (||) operator
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/pkgs/stdenv/generic/make-derivation.nix:350:26[0m:
+          349|           index: dep:
+          350|           if dep == null || isDerivation dep || builtins.isString dep || builtins.isPath dep then
+             |                          [31;1m^[0m
+          351|             dep
+
+       … while calling the '[35;1melemAt[0m' builtin
+         [34;1mat [35;1m/nix/store/9rc9abg9f664bjfhzfp4cb8mrwh7b5y4-source/lib/lists.nix:345:43[0m:
+          344|   */
+          345|   imap1 = f: list: genList (n: f (n + 1) (elemAt list n)) (length list);
+             |                                           [31;1m^[0m
+          346|
+
+       [31;1merror:[0m attribute '[35;1mbashhh[0m' missing
+       [34;1mat [35;1m/nix/store/px16903sd257bknnkr20zinmzl4g5fh2-source/flake.nix:108:42[0m:
+          107|               dontBuild = true;
+          108|               nativeBuildInputs = [ pkgs.bashhh ];
+             |                                          [31;1m^[0m
+          109|               checkPhase = ''
+       Did you mean one of [35;1mbash[0m, [35;1mbash_5[0m, [35;1mbashdb[0m or [35;1mbashly[0m?[0m
+
+Script done on 2025-05-17 18:19:51+00:00 [COMMAND_EXIT_CODE="1"]
+
