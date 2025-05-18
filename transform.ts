@@ -40,6 +40,7 @@ const runCommandScriptColor = async (command: string): Promise<string> => {
 		],
 		env: {
 			"TERM": "xterm-256color",
+			"PAGER": "cat",
 		},
 		stdin: "null",
 		stdout: "piped",
