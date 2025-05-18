@@ -63,8 +63,8 @@
                     run = "nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --result-file result.json || true";
                   }
                   {
-                    name = "unbuffer bash";
-                    run = "nix shell nixpkgs#unixtools.script nixpkgs#bash --command bash -c \"TERM=xterm-256color script -efq -c \\\"nix eval --show-trace .#checks.x86_64-linux.check-a | cat\\\"\"";
+                    name = "nix log";
+                    run = "nix log .#checks.x86_64-linux.pre-commit";
                   }
                   {
                     name = "transform";
