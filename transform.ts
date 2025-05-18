@@ -68,7 +68,7 @@ const runCommandScriptColor = async (command: string): Promise<string> => {
 results.results = await Promise.all(results.results.map(async (status) => {
 	switch (status.type) {
 		case "EVAL": {
-			console.log(status.attr)
+			console.log(`${status.type} ${status.attr}`)
 			if (status.success) {
 				return status
 			} else {
@@ -79,7 +79,7 @@ results.results = await Promise.all(results.results.map(async (status) => {
 			}
 		}
 		case "BUILD": {
-			console.log(status.attr)
+			console.log(`${status.type} ${status.attr}`)
 			status.error = await runCommandScriptColor(`nix log ".#checks.${status.attr}"`)
 			return status
 		}
