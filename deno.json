@@ -10,6 +10,9 @@
 	"fmt": {
 		"useTabs": true,
 		"semiColons": false,
-		"singleQuote": false
+		"singleQuote": false,
+		"exclude": [
+			".github/workflows/main.yaml"
+		]
 	}
 }
