@@ -60,7 +60,7 @@
                   }
                   {
                     name = "nix-fast-build";
-                    run = "nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --result-file result.json || true";
+                    run = "nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --flake \".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)\" --result-file result.json || true";
                   }
                   {
                     name = "nix log";
@@ -71,8 +71,12 @@
                     run = "nix shell nixpkgs#unixtools.script nixpkgs#nushell --command nu ./transform.nu result.json";
                   }
                   {
-                    name = "cat";
-                    run = "cat result_parsed.json";
+                    name = "upload artifact";
+                    uses = "actions/upload-artifact@v4";
+                    "with" = {
+                      name = "results.json";
+                      path = "./result_parsed.json";
+                    };
                   }
                 ];
               };
