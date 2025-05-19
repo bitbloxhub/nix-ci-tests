@@ -68,7 +68,7 @@
                   }
                   {
                     name = "transform";
-                    run = "nix shell nixpkgs#unixtools.script nixpkgs#expect nixpkgs#deno --command deno run -A ./transform.ts result.json";
+                    run = "nix shell nixpkgs#unixtools.script nixpkgs#nushell --command nu ./transform.nu result.json";
                   }
                   {
                     name = "cat";

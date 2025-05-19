@@ -16,8 +16,8 @@ jobs:
     - name: nix log
       run: nix log .#checks.x86_64-linux.pre-commit
     - name: transform
-      run: nix shell nixpkgs#unixtools.script nixpkgs#expect nixpkgs#deno --command
-        deno run -A ./transform.ts result.json
+      run: nix shell nixpkgs#unixtools.script nixpkgs#nushell --command nu ./transform.nu
+        result.json
     - name: cat
       run: cat result_parsed.json
     timeout-minutes: 60
