@@ -1,4 +1,16 @@
 jobs:
+  download-artifact:
+    needs:
+    - fast-build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+    - name: ls
+      run: ls artifacts/
+    timeout-minutes: 60
   fast-build:
     runs-on: ubuntu-latest
     steps:
