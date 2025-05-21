@@ -63,7 +63,7 @@
             }
             {
               name = "ls";
-              run = "ls artifacts/";
+              run = "ls artifacts/*";
             }
           ];
         };
