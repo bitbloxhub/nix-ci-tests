@@ -40,8 +40,11 @@
               name = "upload artifact";
               uses = "actions/upload-artifact@v4";
               "with" = {
-                name = "results.json";
-                path = "./result_parsed.json";
+                name = "results";
+                path = ''
+                  ./result_parsed.json
+                  ./result-*
+                '';
               };
             }
           ];

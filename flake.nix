@@ -91,7 +91,7 @@
                 if [[ "$(./b.sh)" == *b* ]]; then true; else echo "fail" && false; fi;
               '';
               installPhase = ''
-                mkdir "$out"
+                echo b > $out
               '';
             };
             check-c = pkgs.stdenv.mkDerivation {
