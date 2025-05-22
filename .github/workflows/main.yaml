@@ -17,6 +17,7 @@ jobs:
     - uses: actions/checkout@v4
     - uses: DeterminateSystems/nix-installer-action@main
       with:
+        determinate: false
         diagnostic-endpoint: ''
         logger: pretty
         source-url: https://install.lix.systems/lix/lix-installer-${{ fromJSON('{"X64":"x86_64","X86":"i686","ARM64":"aarch64","ARM":"armv7l"}')[runner.arch]
@@ -24,10 +25,7 @@ jobs:
           }}
     - name: nix-fast-build
       run: nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --flake
-        ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)" --result-file
-        result.json || true
-    - name: nix log
-      run: nix log .#checks.x86_64-linux.pre-commit
+        ".#checks.x86_64-linux" result.json || true
     - name: transform
       run: nix shell nixpkgs#unixtools.script nixpkgs#nushell --command nu ./transform.nu
         result.json
@@ -41,6 +39,7 @@ jobs:
 
           '
     timeout-minutes: 60
+name: Nix x86_64-linux
 'on':
   push: {}
   workflow_dispatch: {}

@@ -43,7 +43,10 @@
           };
         };
         workflows = {
-          ".github/workflows/main.yaml" = (import ./default.nix).makeNixAction { flake = self; };
+          ".github/workflows/main.yaml" = (import ./default.nix).makeNixAction {
+            flake = self;
+            useLix = true;
+          };
         };
       };
 
