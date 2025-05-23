@@ -11,72 +11,87 @@
       flake,
     }:
     let
-      sourceUrl =
-        if (useLix) then
-          "https://install.lix.systems/lix/lix-installer-\${{ fromJSON('{\"X64\":\"x86_64\",\"X86\":\"i686\",\"ARM64\":\"aarch64\",\"ARM\":\"armv7l\"}')[runner.arch] }}-\${{ fromJSON('{\"Linux\":\"linux\",\"macOS\":\"darwin\",\"Windows\":\"windows\"}')[runner.os] }}"
-        else
-          null;
+      sourceUrl = if (useLix) then "https://install.lix.systems/lix/lix-installer-${arch}" else null;
     in
     {
       name = workflowName;
-      jobs = {
-        fast-build = {
-          steps =
-            [
-              {
-                uses = "actions/checkout@v4";
-              }
-              {
-                uses = "DeterminateSystems/nix-installer-action@main";
-                "with" = {
-                  determinate = false;
-                  logger = "pretty";
-                  diagnostic-endpoint = "";
-                } // (if (sourceUrl != null) then { source-url = sourceUrl; } else { });
-              }
-            ]
-            ++ preBuild
-            ++ [
-              {
-                name = "nix-fast-build";
-                run = "nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --flake \".#checks.${arch}\" --result-file result.json || true";
-              }
-              {
-                name = "transform";
-                run = "nix shell nixpkgs#unixtools.script nixpkgs#nushell --command nu ./transform.nu result.json";
-              }
-              {
-                name = "upload artifact";
-                uses = "actions/upload-artifact@v4";
-                "with" = {
-                  name = "results";
-                  path = ''
-                    ./result_parsed.json
-                    ./result-*
-                  '';
-                };
-              }
-            ]
-            ++ postUpload;
-        };
-        download-artifact = {
-          needs = [ "fast-build" ];
-          steps = [
-            {
-              uses = "actions/checkout@v4";
-            }
-            {
-              uses = "actions/download-artifact@v4";
-              "with" = {
-                path = "artifacts";
-              };
-            }
-            {
-              name = "ls";
-              run = "ls artifacts/*";
-            }
-          ];
-        };
-      };
+      jobs =
+        {
+          fast-build = {
+            steps =
+              [
+                {
+                  uses = "actions/checkout@v4";
+                }
+              ]
+              ++ (
+                if (shouldInstall) then
+                  [
+                    {
+                      uses = "determinatesystems/nix-installer-action@main";
+                      "with" = {
+                        determinate = false;
+                        logger = "pretty";
+                        diagnostic-endpoint = "";
+                      } // (if (sourceUrl != null) then { source-url = sourceUrl; } else { });
+                    }
+                  ]
+                else
+                  [ ]
+              )
+              ++ preBuild
+              ++ [
+                {
+                  name = "nix-fast-build";
+                  run = "nix run nixpkgs#lixpackagesets.latest.nix-fast-build -- --no-nom --flake \".#checks.${arch}\" --result-file result.json || true";
+                }
+                {
+                  name = "transform";
+                  run = "nix shell nixpkgs#unixtools.script nixpkgs#nushell --command nu ./transform.nu result.json";
+                }
+                {
+                  name = "upload artifact";
+                  uses = "actions/upload-artifact@v4";
+                  "with" = {
+                    name = "results";
+                    path = ''
+                      ./result_parsed.json
+                      ./result-*
+                    '';
+                  };
+                }
+              ]
+              ++ postUpload;
+          };
+        }
+        // builtins.listToAttrs (
+          builtins.map (attr: {
+            name = attr;
+            value = {
+              needs = [ "fast-build" ];
+              steps = [
+                {
+                  uses = "actions/checkout@v4";
+                }
+                {
+                  uses = "actions/download-artifact@v4";
+                  "with" = {
+                    path = "artifacts";
+                  };
+                }
+                {
+                  uses = "hustcer/setup-nu@v3";
+                  "with" = {
+                    check-latest = true;
+                  };
+                }
+                {
+                  name = "report";
+                  run = "nu ./report.nu artifacts/result_parsed.json ${attr}";
+                }
+              ];
+            };
+          }) (builtins.attrNames flake.checks.${arch})
+        );
     };
 }

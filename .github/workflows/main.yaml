@@ -1,5 +1,5 @@
 jobs:
-  download-artifact:
+  check-a:
     needs:
     - fast-build
     runs-on: ubuntu-latest
@@ -8,23 +8,54 @@ jobs:
     - uses: actions/download-artifact@v4
       with:
         path: artifacts
-    - name: ls
-      run: ls artifacts/*
+    - uses: hustcer/setup-nu@v3
+      with:
+        check-latest: true
+    - name: report
+      run: nu ./report.nu artifacts/result_parsed.json check-a
+    timeout-minutes: 60
+  check-b:
+    needs:
+    - fast-build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+    - uses: hustcer/setup-nu@v3
+      with:
+        check-latest: true
+    - name: report
+      run: nu ./report.nu artifacts/result_parsed.json check-b
+    timeout-minutes: 60
+  check-c:
+    needs:
+    - fast-build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+    - uses: hustcer/setup-nu@v3
+      with:
+        check-latest: true
+    - name: report
+      run: nu ./report.nu artifacts/result_parsed.json check-c
     timeout-minutes: 60
   fast-build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: DeterminateSystems/nix-installer-action@main
+    - uses: determinatesystems/nix-installer-action@main
       with:
         determinate: false
         diagnostic-endpoint: ''
         logger: pretty
-        source-url: https://install.lix.systems/lix/lix-installer-${{ fromJSON('{"X64":"x86_64","X86":"i686","ARM64":"aarch64","ARM":"armv7l"}')[runner.arch]
-          }}-${{ fromJSON('{"Linux":"linux","macOS":"darwin","Windows":"windows"}')[runner.os]
-          }}
+        source-url: https://install.lix.systems/lix/lix-installer-x86_64-linux
     - name: nix-fast-build
-      run: nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --flake
+      run: nix run nixpkgs#lixpackagesets.latest.nix-fast-build -- --no-nom --flake
         ".#checks.x86_64-linux" --result-file result.json || true
     - name: transform
       run: nix shell nixpkgs#unixtools.script nixpkgs#nushell --command nu ./transform.nu
@@ -38,6 +69,21 @@ jobs:
           ./result-*
 
           '
+    timeout-minutes: 60
+  pre-commit:
+    needs:
+    - fast-build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+    - uses: hustcer/setup-nu@v3
+      with:
+        check-latest: true
+    - name: report
+      run: nu ./report.nu artifacts/result_parsed.json pre-commit
     timeout-minutes: 60
 name: Nix x86_64-linux
 'on':
