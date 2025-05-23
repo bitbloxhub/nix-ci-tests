@@ -12,7 +12,7 @@ jobs:
       with:
         check-latest: true
     - name: report
-      run: nu ./report.nu artifacts/result_parsed.json check-a
+      run: ls artifacts && nu ./report.nu artifacts/result_parsed.json check-a
     timeout-minutes: 60
   check-b:
     needs:
@@ -27,7 +27,7 @@ jobs:
       with:
         check-latest: true
     - name: report
-      run: nu ./report.nu artifacts/result_parsed.json check-b
+      run: ls artifacts && nu ./report.nu artifacts/result_parsed.json check-b
     timeout-minutes: 60
   check-c:
     needs:
@@ -42,7 +42,7 @@ jobs:
       with:
         check-latest: true
     - name: report
-      run: nu ./report.nu artifacts/result_parsed.json check-c
+      run: ls artifacts && nu ./report.nu artifacts/result_parsed.json check-c
     timeout-minutes: 60
   fast-build:
     runs-on: ubuntu-latest
@@ -83,7 +83,7 @@ jobs:
       with:
         check-latest: true
     - name: report
-      run: nu ./report.nu artifacts/result_parsed.json pre-commit
+      run: ls artifacts && nu ./report.nu artifacts/result_parsed.json pre-commit
     timeout-minutes: 60
 name: Nix x86_64-linux
 'on':

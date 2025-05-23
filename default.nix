@@ -87,7 +87,7 @@
                 }
                 {
                   name = "report";
-                  run = "nu ./report.nu artifacts/result_parsed.json ${attr}";
+                  run = "ls artifacts && nu ./report.nu artifacts/result_parsed.json ${attr}";
                 }
               ];
             };
