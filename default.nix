@@ -43,7 +43,7 @@
               ++ [
                 {
                   name = "nix-fast-build";
-                  run = "nix run nixpkgs#lixPackageSets.latest.nix-fast-build -- --no-nom --flake \".#checks.${arch}\" --result-file result.json || true";
+                  run = "nix run nixpkgs#${ if useLix then "lixPackageSets.latest." else ""}nix-fast-build -- --no-nom --flake \".#checks.${arch}\" --result-file result.json || true";
                 }
                 {
                   name = "transform";
