@@ -16,7 +16,7 @@ def main (file: string) {
         } else {
           $status.attr | inspect
           let eval_err = (do -i
-            {script -efq -c $"nix eval --show-trace \".#checks.($system).($status.attr)\"" e+o>|}
+            {script -efq -c $"nix eval --show-trace --log-format internal-json \".#checks.($system).($status.attr)\"" e+o>|}
           )
           rm ./typescript
           $status | update error $eval_err
