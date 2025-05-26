@@ -16,7 +16,7 @@ def main (file: string) {
         } else {
           $status.attr | inspect
           let eval_err = (do -i
-            {script -efq -c $"nix eval --show-trace \".#checks.($system).($status.attr)\"" e+o>| sed "s/\\x1b[2026h*\\x1b[2026l//"}
+            {script -efq -c $"nix eval --show-trace \".#checks.($system).($status.attr)\"" e+o>|}
           )
           rm ./typescript
           $status | update error $eval_err
@@ -24,7 +24,7 @@ def main (file: string) {
         "BUILD" => {
           $status.attr | inspect
           let build_log = (do -i
-            {script -efq -c $"nix log \".#checks.($system).($status.attr)\"" e+o>| sed "s/\\x1b[2026h*\\x1b[2026l//"}
+            {script -efq -c $"nix log --log-format internal-json \".#checks.($system).($status.attr)\"" e+o>|}
           )
           rm ./typescript
           $status | update error $build_log
